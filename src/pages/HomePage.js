@@ -1,13 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import MovieList from 'components/MovieList/MovieList';
-import { useEffect } from 'react';
-import getTrending from 'services/api';
+import * as API from '../services/api';
 
 export default function HomePage() {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    getTrending().then(({ results }) => {
+    API.getTrending().then(({ results }) => {
+      // console.log(results);
       const arrayOfMovies = results.map(({ name, title, id }) => ({
         name: name ?? title,
         id,
