@@ -7,7 +7,6 @@ export default function HomePage() {
 
   useEffect(() => {
     API.getTrending().then(({ results }) => {
-      // console.log(results);
       const arrayOfMovies = results.map(({ name, title, id }) => ({
         name: name ?? title,
         id,

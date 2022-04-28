@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
+import { Link, Outlet } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import * as API from '../../services/api';
+import MovieCard from 'components/MovieCard';
 
 export default function MovieDetails() {
   const { movieId } = useParams();
@@ -8,23 +10,46 @@ export default function MovieDetails() {
   const [movie, setMovie] = useState(null);
 
   useEffect(() => {
-    API.getMovieDetails(movieId).then(setMovie);
+    API.getMovieDetails(movieId).then(response => {
+      const {
+        poster_path,
+        title,
+        name,
+        vote_average,
+        overview,
+        genres,
+        backdrop_path,
+        release_date,
+      } = response;
+
+      const movieDetails = {
+        img: poster_path ?? backdrop_path,
+        title: title ?? name,
+        vote_average,
+        overview,
+        genres,
+        release_date,
+      };
+
+      setMovie(movieDetails);
+    });
   }, [movieId]);
 
   return (
     <>
       {movie && (
         <>
-          <img
-            src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-            alt={movie.title ?? movie.name}
-          />
-          <div>Vote average:</div>
-          <div>{movie.vote_average}</div>
-          <div>Overview:</div>
-          <div>{movie.overview}</div>
-          <div>Genres:</div>
-          <div>{movie.genres.map(el => el.name).join(', ')}</div>
+          <MovieCard data={movie} />
+
+          <p>Additional information</p>
+          <p>
+            <Link to={`cast`}>Cast</Link>
+          </p>
+          <p>
+            <Link to={`reviews`}>Reviews</Link>
+          </p>
+
+          <Outlet />
         </>
       )}
     </>
