@@ -33,7 +33,8 @@ export default function Movies() {
     <>
       <SearchForm onSubmit={formSubmitHandler} />
       {/* <Route path={/movies?query={searchInput}}></Route> */}
-      <MoviesByQuery movies={movies} />
+      {movies && <MoviesByQuery movies={movies} />}
+
       <Outlet />
     </>
   );

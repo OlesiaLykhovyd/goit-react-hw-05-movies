@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import * as API from '../../services/api';
 import MovieCard from 'components/MovieCard';
 
 export default function MovieDetails() {
   const { movieId } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const backLocation = location?.state?.backLocation;
 
   const [movie, setMovie] = useState(null);
 
@@ -39,15 +42,27 @@ export default function MovieDetails() {
     <>
       {movie && (
         <>
-          <MovieCard data={movie} />
+          <button
+            type="button"
+            onClick={() => navigate(backLocation?.pathname ?? '/')}
+          >
+            Go back
+          </button>
+          <div>
+            <MovieCard data={movie} />
 
-          <p>Additional information</p>
-          <p>
-            <Link to={`cast`}>Cast</Link>
-          </p>
-          <p>
-            <Link to={`reviews`}>Reviews</Link>
-          </p>
+            <p>Additional information</p>
+            <p>
+              <Link to={`cast`} state={{ backLocation }}>
+                Cast
+              </Link>
+            </p>
+            <p>
+              <Link to={`reviews`} state={{ backLocation }}>
+                Reviews
+              </Link>
+            </p>
+          </div>
 
           <Outlet />
         </>

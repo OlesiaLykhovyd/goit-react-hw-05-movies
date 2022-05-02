@@ -18,7 +18,7 @@ export default function HomePage() {
   return (
     <>
       <h1>Trending today</h1>
-      <MovieList movies={movies} />
+      {movies && <MovieList movies={movies} />}
     </>
   );
 }
