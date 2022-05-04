@@ -1,19 +1,22 @@
 // import { Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import SearchForm from 'components/SearchForm';
 import * as API from '../services/api';
 import MoviesByQuery from 'components/MoviesByQuery';
 
 export default function Movies() {
-  const [searchInput, setSearchInput] = useState('');
+  const { search } = useLocation();
+  const query = new URLSearchParams(search).get('query') ?? '';
+
+  // const [searchInput, setSearchInput] = useState('');
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    if (searchInput === '') {
+    if (query === '') {
       return;
     }
-    API.getMovieByQuery(searchInput).then(({ results }) => {
+    API.getMovieByQuery(query).then(({ results }) => {
       const moviesArr = results.map(
         ({ id, original_title, poster_path, backdrop_path, vote_average }) => ({
           id,
@@ -24,15 +27,16 @@ export default function Movies() {
       );
       setMovies(moviesArr);
     });
-  }, [searchInput]);
+  }, [query]);
 
-  const formSubmitHandler = data => {
-    setSearchInput(data);
-  };
+  // const formSubmitHandler = data => {
+  //   // setSearchInput(data);
+  // };
+
   return (
     <>
-      <SearchForm onSubmit={formSubmitHandler} />
-      {/* <Route path={/movies?query={searchInput}}></Route> */}
+      {/* <SearchForm onSubmit={formSubmitHandler} /> */}
+      <SearchForm />
       {movies && <MoviesByQuery movies={movies} />}
 
       <Outlet />

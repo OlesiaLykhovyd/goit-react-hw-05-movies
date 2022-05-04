@@ -1,30 +1,38 @@
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import {
+  QueryList,
+  QueryListItem,
+  QueryImage,
+  MovieLink,
+  MovieInfo,
+} from './MoviesByQuery.styled';
 
 export default function MoviesByQuery({ movies }) {
   const location = useLocation();
+  // console.log(location);
 
   const stateData = {
     backLocation: location,
   };
 
   return (
-    <ul>
+    <QueryList>
       {movies.map(({ id, title, img, vote_average }) => {
         return (
-          <li key={id}>
-            <Link to={`/movies/${id}`} state={stateData}>
-              <h3>{title}</h3>
-              <img
-                width={100}
+          <QueryListItem key={id}>
+            <MovieLink to={`/movies/${id}`} state={stateData}>
+              <QueryImage
                 src={`https://image.tmdb.org/t/p/w500/${img}`}
                 alt={title}
               />
-              <p>Vote average:</p>
-              <p>{vote_average}</p>
-            </Link>
-          </li>
+              <MovieInfo>
+                <h3>{title}</h3>
+                <p>Vote average: {vote_average}</p>
+              </MovieInfo>
+            </MovieLink>
+          </QueryListItem>
         );
       })}
-    </ul>
+    </QueryList>
   );
 }

@@ -1,16 +1,28 @@
+import {
+  CastingList,
+  CastListItem,
+  ActorImage,
+  ActorsInfo,
+  ActorsInfoTitle,
+} from './CastList.styled';
+
 export default function CastList({ cast }) {
   return (
-    <ul>
+    <CastingList>
       {cast.map(({ id, character, name, profile_path }) => (
-        <li key={id}>
-          <img
+        <CastListItem key={id}>
+          <ActorImage
             src={`https://image.tmdb.org/t/p/w500/${profile_path}`}
             alt={character}
           />
-          <p>Actors name: {name}</p>
-          <p>Character: {character}</p>
-        </li>
+          <ActorsInfo>
+            <ActorsInfoTitle>Actors name:</ActorsInfoTitle>
+            <p>{name}</p>
+            <ActorsInfoTitle>Character: </ActorsInfoTitle>
+            <p>{character}</p>
+          </ActorsInfo>
+        </CastListItem>
       ))}
-    </ul>
+    </CastingList>
   );
 }
