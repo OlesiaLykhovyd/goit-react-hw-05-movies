@@ -13,7 +13,9 @@ export const CastListItem = styled.li`
   border-radius: 5px;
   margin: 10px;
 `;
-
+// export const ImageBox = styled.div`
+//   min-width: 550px;
+// `;
 export const ActorImage = styled.img`
   max-width: 150px;
 `;

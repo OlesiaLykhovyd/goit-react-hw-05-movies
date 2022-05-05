@@ -1,24 +1,53 @@
+import { lazy, Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Layout from './Layout';
-import HomePage from '../pages/HomePage';
-import Movies from '../pages/Movies';
-import MovieDetails from './MovieDetails';
-import Cast from 'pages/Cast';
-import Reviews from 'pages/Reviews';
-import NotFoundPage from 'pages/NotFoundPage';
+
+const HomePage = lazy(() =>
+  import('../pages/HomePage' /* webpackChunkName: "home-page" */)
+);
+const Movies = lazy(() =>
+  import('../pages/Movies' /* webpackChunkName: "movies-page" */)
+);
+const MovieDetails = lazy(() =>
+  import('./MovieDetails' /* webpackChunkName: "movie-details-page" */)
+);
+const Cast = lazy(() =>
+  import('pages/Cast' /* webpackChunkName: "movie-cast-page" */)
+);
+const Reviews = lazy(() =>
+  import('pages/Reviews' /* webpackChunkName: "movie-reviews-page" */)
+);
+const NotFoundPage = lazy(() =>
+  import('pages/NotFoundPage' /* webpackChunkName: "not-found-page" */)
+);
 
 export default function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<HomePage />} />
-        <Route path="movies" element={<Movies />} />
-        <Route path="movies/:movieId" element={<MovieDetails />}>
-          <Route path="cast" element={<Cast />} />
-          <Route path="reviews" element={<Reviews />} />
+    // <Layout>
+    //   <Suspense fallback={<h1>Loading...</h1>}>
+    //     <Routes>
+    //       <Route path="/" element={<HomePage />} />
+    //       <Route path="/movies" element={<Movies />} />
+    //       <Route path="/movies/:movieId" element={<MovieDetails />}>
+    //         <Route path="cast" element={<Cast />} />
+    //         <Route path="reviews" element={<Reviews />} />
+    //       </Route>
+    //       <Route path="*" element={<NotFoundPage />} />
+    //     </Routes>
+    //   </Suspense>
+    // </Layout>
+    <Suspense fallback={<h1>Loading...</h1>}>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route path="movies" element={<Movies />} />
+          <Route path="movies/:movieId" element={<MovieDetails />}>
+            <Route path="cast" element={<Cast />} />
+            <Route path="reviews" element={<Reviews />} />
+          </Route>
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
-        <Route path="*" element={<NotFoundPage />} />
-      </Route>
-    </Routes>
+      </Routes>
+    </Suspense>
   );
 }

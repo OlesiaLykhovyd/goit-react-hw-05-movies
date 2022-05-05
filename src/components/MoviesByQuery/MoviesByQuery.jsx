@@ -1,4 +1,5 @@
 import { useLocation } from 'react-router-dom';
+import placeholder from '../../images/imdbnoimage.jpeg';
 import {
   QueryList,
   QueryListItem,
@@ -22,7 +23,9 @@ export default function MoviesByQuery({ movies }) {
           <QueryListItem key={id}>
             <MovieLink to={`/movies/${id}`} state={stateData}>
               <QueryImage
-                src={`https://image.tmdb.org/t/p/w500/${img}`}
+                src={
+                  img ? `https://image.tmdb.org/t/p/w500/${img}` : placeholder
+                }
                 alt={title}
               />
               <MovieInfo>

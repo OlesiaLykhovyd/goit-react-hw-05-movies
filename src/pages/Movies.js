@@ -1,15 +1,16 @@
 // import { Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import SearchForm from 'components/SearchForm';
 import * as API from '../services/api';
 import MoviesByQuery from 'components/MoviesByQuery';
 
-export default function Movies() {
-  const { search } = useLocation();
-  const query = new URLSearchParams(search).get('query') ?? '';
+import { useSearchParams } from 'react-router-dom';
 
-  // const [searchInput, setSearchInput] = useState('');
+export default function Movies() {
+  let [searchParams] = useSearchParams({});
+  const query = searchParams.get('query') ?? '';
+
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
@@ -29,13 +30,8 @@ export default function Movies() {
     });
   }, [query]);
 
-  // const formSubmitHandler = data => {
-  //   // setSearchInput(data);
-  // };
-
   return (
     <>
-      {/* <SearchForm onSubmit={formSubmitHandler} /> */}
       <SearchForm />
       {movies && <MoviesByQuery movies={movies} />}
 

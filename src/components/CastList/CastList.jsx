@@ -1,3 +1,4 @@
+import noImage from '../../images/no-image-available.png';
 import {
   CastingList,
   CastListItem,
@@ -12,7 +13,11 @@ export default function CastList({ cast }) {
       {cast.map(({ id, character, name, profile_path }) => (
         <CastListItem key={id}>
           <ActorImage
-            src={`https://image.tmdb.org/t/p/w500/${profile_path}`}
+            src={
+              profile_path
+                ? `https://image.tmdb.org/t/p/w500/${profile_path}`
+                : noImage
+            }
             alt={character}
           />
           <ActorsInfo>
