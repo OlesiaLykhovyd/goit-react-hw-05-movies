@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import noPoster from '../../images/imdbnoimage.jpeg';
 
 import {
@@ -29,3 +30,14 @@ export default function MovieCard({ data }) {
     </MovieDetails>
   );
 }
+
+MovieCard.propTypes = {
+  data: PropTypes.shape({
+    img: PropTypes.string.isRequired,
+    vote_average: PropTypes.number.isRequired,
+    overview: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    release_date: PropTypes.string.isRequired,
+    genres: PropTypes.arrayOf(PropTypes.object.isRequired),
+  }),
+};

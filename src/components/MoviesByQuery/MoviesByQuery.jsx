@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
 import placeholder from '../../images/imdbnoimage.jpeg';
 import {
@@ -10,7 +11,6 @@ import {
 
 export default function MoviesByQuery({ movies }) {
   const location = useLocation();
-  // console.log(location);
 
   const stateData = {
     backLocation: location,
@@ -39,3 +39,14 @@ export default function MoviesByQuery({ movies }) {
     </QueryList>
   );
 }
+
+MoviesByQuery.propTypes = {
+  movies: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      img: PropTypes.string,
+      vote_average: PropTypes.string,
+    })
+  ),
+};

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { NavigationLink } from './AdditionalInfo.styled';
 
 export default function AdditionalInfo({ backLocation }) {
@@ -14,3 +15,7 @@ export default function AdditionalInfo({ backLocation }) {
     </>
   );
 }
+
+AdditionalInfo.propTypes = {
+  backLocation: PropTypes.object.isRequired,
+};

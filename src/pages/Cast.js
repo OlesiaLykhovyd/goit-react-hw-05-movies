@@ -6,7 +6,11 @@ export default function Cast() {
 
   return (
     <>
-      {!cast ? <p>There is no cast to this movie</p> : <CastList cast={cast} />}
+      {cast === null || cast.length === 0 ? (
+        <p>There is no cast to this movie</p>
+      ) : (
+        <CastList cast={cast} />
+      )}
     </>
   );
 }

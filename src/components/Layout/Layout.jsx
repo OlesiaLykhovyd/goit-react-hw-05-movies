@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import AppBar from 'components/AppBar';
 import Container from 'components/Container';
@@ -9,7 +10,9 @@ export default function Layout() {
       <GlobalStyle />
       <Container>
         <AppBar />
-        <Outlet />
+        <Suspense fallback={<h1>Loading...</h1>}>
+          <Outlet />
+        </Suspense>
       </Container>
     </>
   );

@@ -1,9 +1,12 @@
-import Navigation from 'components/Navigation';
+import { NavigationLink } from './App.styled';
 
 export default function AppBar() {
   return (
     <header>
-      <Navigation />
+      <nav>
+        <NavigationLink to="/">Home</NavigationLink>
+        <NavigationLink to="/movies">Movies</NavigationLink>
+      </nav>
     </header>
   );
 }

@@ -5,6 +5,7 @@ import * as API from '../../services/api';
 import MovieCard from 'components/MovieCard';
 import AdditionalInfo from 'components/AdditionalInfo';
 import { Button } from './MovieDetails.styled';
+import Notiflix from 'notiflix';
 
 export default function MovieDetails() {
   const { movieId } = useParams();
@@ -15,34 +16,38 @@ export default function MovieDetails() {
   const [movie, setMovie] = useState(null);
 
   useEffect(() => {
-    API.getMovieDetails(movieId).then(response => {
-      const {
-        poster_path,
-        title,
-        name,
-        vote_average,
-        overview,
-        genres,
-        backdrop_path,
-        release_date,
-      } = response;
+    API.getMovieDetails(movieId)
+      .then(response => {
+        const {
+          poster_path,
+          title,
+          name,
+          vote_average,
+          overview,
+          genres,
+          backdrop_path,
+          release_date,
+        } = response;
 
-      const movieDetails = {
-        img: poster_path ?? backdrop_path,
-        title: title ?? name,
-        vote_average,
-        overview,
-        genres,
-        release_date,
-      };
+        const movieDetails = {
+          img: poster_path ?? backdrop_path,
+          title: title ?? name,
+          vote_average,
+          overview,
+          genres,
+          release_date,
+        };
 
-      setMovie(movieDetails);
-    });
+        setMovie(movieDetails);
+      })
+      .catch(error => {
+        Notiflix.Notify.warning('Sorry, there are no details about this film');
+      });
   }, [movieId]);
 
   return (
     <>
-      {movie && (
+      {movie ? (
         <>
           <Button type="button" onClick={() => navigate(backLocation ?? '/')}>
             Go back
@@ -54,6 +59,10 @@ export default function MovieDetails() {
 
           <Outlet />
         </>
+      ) : (
+        <Button type="button" onClick={() => navigate(backLocation ?? '/')}>
+          Go back
+        </Button>
       )}
     </>
   );
