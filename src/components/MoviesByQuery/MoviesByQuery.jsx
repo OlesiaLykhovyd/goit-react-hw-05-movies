@@ -46,7 +46,7 @@ MoviesByQuery.propTypes = {
       id: PropTypes.number.isRequired,
       title: PropTypes.string.isRequired,
       img: PropTypes.string,
-      vote_average: PropTypes.string,
+      vote_average: PropTypes.number,
     })
   ),
 };
