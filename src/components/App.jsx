@@ -1,6 +1,7 @@
 import { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Layout from './Layout';
+// import MovieDetails from 'pages/MovieDetails';
 
 const HomePage = lazy(() =>
   import('../pages/HomePage' /* webpackChunkName: "home-page" */)
@@ -9,7 +10,7 @@ const Movies = lazy(() =>
   import('../pages/Movies' /* webpackChunkName: "movies-page" */)
 );
 const MovieDetails = lazy(() =>
-  import('./MovieDetails' /* webpackChunkName: "movie-details-page" */)
+  import('pages/MovieDetails' /* webpackChunkName: "movie-details-page" */)
 );
 const Cast = lazy(() =>
   import('pages/Cast' /* webpackChunkName: "movie-cast-page" */)

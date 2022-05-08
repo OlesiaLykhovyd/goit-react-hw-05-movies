@@ -1,16 +1,14 @@
 import { useState, useEffect } from 'react';
-import { Outlet, useNavigate, useLocation } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
-import * as API from '../../services/api';
+import { Outlet, useLocation, useParams } from 'react-router-dom';
+import * as API from '../services/api';
 import MovieCard from 'components/MovieCard';
 import AdditionalInfo from 'components/AdditionalInfo';
-import { Button } from './MovieDetails.styled';
+import Button from 'components/Button';
 import Notiflix from 'notiflix';
 
 export default function MovieDetails() {
   const { movieId } = useParams();
   const location = useLocation();
-  const navigate = useNavigate();
   const backLocation = location?.state?.backLocation;
 
   const [movie, setMovie] = useState(null);
@@ -49,9 +47,8 @@ export default function MovieDetails() {
     <>
       {movie ? (
         <>
-          <Button type="button" onClick={() => navigate(backLocation ?? '/')}>
-            Go back
-          </Button>
+          <Button backLocation={backLocation} />
+
           <div>
             <MovieCard data={movie} />
             <AdditionalInfo backLocation={backLocation} />
@@ -60,9 +57,7 @@ export default function MovieDetails() {
           <Outlet />
         </>
       ) : (
-        <Button type="button" onClick={() => navigate(backLocation ?? '/')}>
-          Go back
-        </Button>
+        <Button backLocation={backLocation} />
       )}
     </>
   );
